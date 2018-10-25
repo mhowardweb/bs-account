@@ -1,0 +1,51 @@
+const config = {
+  bitsharesNodes: {
+    list: {
+      'wss://bitshares.openledger.info/ws': { location: 'Nuremberg, Germany' },
+      'wss://eu.openledger.info/ws': { location: 'Berlin, Germany' },
+      // 'wss://bit.btsabc.org/ws': { location: 'Hong Kong' },
+      'wss://bts.ai.la/ws': { location: 'Hong Kong' },
+      'wss://bitshares.apasia.tech/ws': { location: 'Bangkok, Thailand' },
+      'wss://japan.bitshares.apasia.tech/ws': { location: 'Tokyo, Japan' },
+      // 'wss://bitshares.dacplay.org/ws': { location: 'Hangzhou, China' },
+      'wss://bitshares-api.wancloud.io/ws': { location: 'China' },
+      // 'wss://openledger.hk/ws': { location: 'Hong Kong' },
+      'wss://bitshares.crypto.fans/ws': { location: 'Munich, Germany' },
+      'wss://ws.gdex.top': { location: 'China' },
+      'wss://dex.rnglab.org': { location: 'Netherlands' },
+      'wss://dexnode.net/ws': { location: 'Dallas, USA' },
+      'wss://kc-us-dex.xeldal.com/ws': { location: 'Kansas City, USA' },
+      'wss://btsza.co.za:8091/ws': { location: 'Cape Town, South Africa' },
+      'wss://api.bts.blckchnd.com': { location: 'Falkenstein, Germany' },
+      'wss://api-ru.bts.blckchnd.com': { location: 'Moscow, Russia' },
+      'wss://eu.nodes.bitshares.ws': {
+        location: 'Central Europe - BitShares Infrastructure Program',
+      },
+      'wss://us.nodes.bitshares.ws': {
+        location: 'U.S. West Coast - BitShares Infrastructure Program',
+      },
+      'wss://sg.nodes.bitshares.ws': { location: 'Singapore - BitShares Infrastructure Program' },
+      'wss://ws.winex.pro': { location: 'Singapore' },
+    },
+    defaultNode: 'wss://bitshares.openledger.info/ws',
+  },
+  defaultAssetsNames: ['USD', 'OPEN.BTC', 'OPEN.ETH', 'OPEN.DASH', 'OPEN.LTC',
+    'OPEN.EOS', 'OPEN.STEEM', 'BTS', 'TRUSTY', 'TWENTIX', 'NOWCOIN', 'CLOUDCOIN',
+    'DONGFENG', 'PROTON', 'ELECTRON', 'DECENTRALIZED', 'MCDONALDSCOM', 'EBAYCOM',
+    'STARBUCKSCOM', 'MICROSOFTCOM', 'BAIDUCOM', 'FACEBOOKCOM', 'DEEX', 'NETFLIXCOM',
+    'GOOGL', 'AMAZONCOM', 'BOEINGCOM', 'ALIBABACOM', 'APPLECOM', 'CEMENT', 'CISCOCOM',
+    'CROKS', 'FORDCOM', 'FRESHCOIN', 'HYPERCASH', 'LIQPAY', 'NEXTCOIN', 'QUBIT',
+    'SWIFTCOIN', 'TERRACOIN', 'TESLACOM', 'VIRTUAL', 'VISACOM', 'ZALUPA'],
+  referrer: 'trfnd',
+  removePrefix: 'OPEN.',
+  faucetUrl: 'https://faucet.trusty.fund/signup',
+  defaultMarkets: [
+    '1.3.121',
+    '1.3.861',
+    '1.3.113',
+    '1.3.0',
+    '1.3.103',
+  ],
+};
+
+export default config;

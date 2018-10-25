@@ -1,0 +1,6 @@
+{
+  "appId": "com.balance.bs",
+  "appName": "bs-balance",
+  "bundledWebRuntime": false,
+  "webDir": "dist"
+}

@@ -1,61 +1,92 @@
 <template>
   <ion-content>
-    <ion-label class="title">Bitshares Accounts</ion-label>
+    <input v-model="filterText">
+    <ion-label class="title">Balances for {{userName}}</ion-label>
     <ion-grid class="listbox">
-
-      <ion-row v-for="(item, index) in accounts" :key="index">
-        <ion-col @click="handleBalance(item.name)" class="pill">
-          <ion-icon name="key"></ion-icon>
-          <ion-label>{{item.name}}</ion-label>
-        </ion-col>
+      <ion-row>
+        <ion-col @click="sortBy('symbol')" class="btitle">Coin</ion-col>
+        <ion-col @click="sortBy('token')" class="btitle">Amount</ion-col>
       </ion-row>
+      <ion-row v-for="(item, index) in balancesAsArray" :key="index">
+        <ion-col v-if="item.tokens > 0.9" class="date">{{ item.symbol }}</ion-col>
+        <ion-col v-if="item.tokens > 0.9" class="daybox">{{ item.tokens }}</ion-col>
+      </ion-row>
+
     </ion-grid>
   </ion-content>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
-  name: 'home',
+  name: 'Balances',
   data() {
     return {
-
+      filterText: '',
+      sortKey: 'symbol',
+      reverse: false,
+      search: '',
+      columns: ['Coin', 'Amount'],
     };
   },
   methods: {
-    async handleBalance(data) {
-      await this.$store.dispatch('assets/fetchDefaultAssets', null);
-      await this.$store.dispatch('user/fetchUser', data);
-      this.$router.push('balances');
+    sortBy(sortKey) {
+      console.log('clicked', sortKey, this.reverse);
+      this.reverse = (this.sortKey === sortKey) ? !this.reverse : false;
+      this.sortKey = sortKey;
     },
   },
   computed: {
-    ...mapState({
-      accounts: state => state.accounts,
+    ...mapGetters({
+      userBalances: 'user/getBalances',
+      getAssetById: 'assets/getAssetById',
+      getHideList: 'assets/getHideList',
+      userName: 'user/getUserName',
     }),
+    balancesAsArray() {
+      const balances = this.userBalances;
+      if (!balances) return [];
+      // filter balances that are > 0 and generate array with symbols
+      // and precised balances
+      let balancesKeys = Object.keys(balances).filter(id => balances[id].balance);
+      if (!this.editAssetsMode) {
+        balancesKeys = balancesKeys.filter(id => !this.getHideList.includes(id));
+      }
+      return balancesKeys.map((id) => {
+        const asset = this.getAssetById(id);
+        const visible = !this.getHideList.includes(id);
+        return {
+          id,
+          symbol: asset.symbol,
+          tokens: balances[id].balance / 10 ** asset.precision,
+          visible,
+        };
+      });
+    },
+    filteredData() {
+      return this.balancesAsArray.filter(element => element.match(this.filterText));
+    },
+    sortedData() {
+      return this.userBalances.sort((a, b) => {
+        let modifier = 1;
+        if (this.currentSortDir === 'desc') modifier = -1;
+        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+        return 0;
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
-.pill {
-  margin-bottom: 10px;
-  height: 104px;
-  background: #9C27B0;
-  box-shadow: 0px 4px 20px rgba(156, 39, 176, 0.45);
-  border-radius: 3px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 24px;
-  font-size: 24px;
-  color: #FFFFFF;
-  text-align: center;
-  text-transform: uppercase;
-}
-ion-icon {
-  font-size: 48px;
+.box {
+  margin-top: 20px;
+  width: 360px;
+  height: 100%;
+  background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+  border-radius: 4px;
 }
 
 .date {
