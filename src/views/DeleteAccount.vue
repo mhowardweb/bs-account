@@ -2,10 +2,10 @@
   <ion-content>
     <ion-alert-controller></ion-alert-controller>
     <form @submit.prevent="handleDelete(account)">
-      <ion-list padding>
-        <ion-list-header text-center class="banner">Delete Account</ion-list-header>
+      <ion-list>
+        <ion-list-header padding justify-content-center class="banner">Delete Account</ion-list-header>
 
-          <ion-grid class="igrid">
+          <ion-grid padding class="igrid">
             <ion-row>
               <ion-col>
                 <ion-label class="ilabel">Select Account</ion-label>
@@ -24,10 +24,10 @@
             </ion-row>
           </ion-grid>
 
-          <ion-grid class="igrid">
+          <ion-grid padding class="igrid">
             <ion-row>
               <ion-col>
-                <ion-label class="ilabel">Acount Name</ion-label>
+                <ion-label class="ilabel">Account Name</ion-label>
                 <ion-label class="error" v-if="!$v.account.name.minLength">Name must have at least {{$v.account.name.$params.minLength.min}} characters.</ion-label>
               </ion-col>
             </ion-row>
@@ -38,10 +38,10 @@
             </ion-row>
           </ion-grid>
 
-        <ion-grid class="igrid">
+        <ion-grid padding class="igrid">
             <ion-row>
               <ion-col>
-                <ion-label class="ilabel">Acount Details</ion-label>
+                <ion-label class="ilabel">Account Details</ion-label>
                 <ion-label class="error" v-if="!$v.account.details.minLength">Name must have at least {{$v.account.details.$params.minLength.min}} characters.</ion-label>
               </ion-col>
             </ion-row>
@@ -51,9 +51,9 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-          <ion-card-content>
+          <ion-grid padding>
             <ion-button class="ibutton" expand="full" :disabled="$v.$invalid" type="submit">Delete Account</ion-button>
-          </ion-card-content>
+          </ion-grid>
         </ion-list>
       </form>
   </ion-content >
@@ -140,41 +140,4 @@ export default {
 </script>
 
 <style scoped>
-.banner {
-  background: rgba(31, 32, 65, 0.5);
-  font-family: Quicksand;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 24px;
-  color: #ffffff;
-}
-
-.grid {
-  width: 320px;
-  height: 64.44px;
-}
-.ibox {
-  width: 360px;
-  height: 44px;
-  border: 1px solid rgba(31, 32, 65, 0.25);
-  box-sizing: border-box;
-  border-radius: 4px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 24px;
-  font-size: 18px;
-  color: rgba(31, 32, 65, 0.75);
-}
-
-.ilabel {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 12px;
-  text-transform: uppercase;
-  color: #1f2041;
-}
 </style>

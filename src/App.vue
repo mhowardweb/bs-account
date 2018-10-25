@@ -30,6 +30,7 @@ export default {
 
 <style>
 .ibutton {
+  --height: 50px;
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 25px;
@@ -43,6 +44,69 @@ export default {
   line-height: normal;
   font-size: 14px;
   text-transform: uppercase;
+}
+
+.banner {
+  background: rgba(31, 32, 65, 0.5);
+  font-family: Quicksand;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.btitle {
+  font-family: Montserrat;
+  text-align: center;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #9C27B0;
+  border: 1px solid rgba(31, 32, 65, 0.25);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 20px;
+}
+
+.ibox {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 44px;
+  border: 1px solid rgba(31, 32, 65, 0.25);
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 24px;
+  font-size: 18px;
+  color: rgba(31, 32, 65, 0.75);
+}
+
+
+.error {
+  margin-left: 20px;
+  color: #9C27B0;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 14px;
+}
+
+.ilabel {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #1f2041;
 }
 
 </style>

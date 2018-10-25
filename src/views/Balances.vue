@@ -1,15 +1,24 @@
 <template>
   <ion-content>
-    <input v-model="filterText">
-    <ion-label class="title">Balances for {{userName}}</ion-label>
-    <ion-grid class="listbox">
+    <ion-list-header justify-content-center padding class="banner">Balances for {{userName}}</ion-list-header>
+      <ion-grid>
+        <ion-row>
+           <ion-input
+            placeholder="Search for a Coin"
+            class="filter"
+            ref="filter"
+            :value="filterValue"
+            @input="updateFilter"
+          ></ion-input>
+        </ion-row>
+
       <ion-row>
-        <ion-col @click="sortBy('symbol')" class="btitle">Coin</ion-col>
-        <ion-col @click="sortBy('token')" class="btitle">Amount</ion-col>
+        <ion-col class="btitle" @click="sortBy('symbol')"><ion-icon style="font-size: 12px" name="git-compare"></ion-icon> Coin</ion-col>
+        <ion-col class="btitle" @click="sortBy('tokens')">Amount</ion-col>
       </ion-row>
-      <ion-row v-for="(item, index) in balancesAsArray" :key="index">
-        <ion-col v-if="item.tokens > 0.9" class="date">{{ item.symbol }}</ion-col>
-        <ion-col v-if="item.tokens > 0.9" class="daybox">{{ item.tokens }}</ion-col>
+      <ion-row v-for="(item, index) in filteredAndSortedData" :key="index">
+        <ion-col v-if="item.tokens > 0.9" class="symbol">{{ item.symbol }}</ion-col>
+        <ion-col v-if="item.tokens > 0.9" class="tokens">{{ item.tokens }}</ion-col>
       </ion-row>
 
     </ion-grid>
@@ -23,18 +32,21 @@ export default {
   name: 'Balances',
   data() {
     return {
-      filterText: '',
+      filterValue: '',
       sortKey: 'symbol',
-      reverse: false,
+      sortAsc: true,
       search: '',
-      columns: ['Coin', 'Amount'],
+
     };
   },
   methods: {
     sortBy(sortKey) {
-      console.log('clicked', sortKey, this.reverse);
-      this.reverse = (this.sortKey === sortKey) ? !this.reverse : false;
+      console.log('clicked', sortKey, this.sortAsc);
+      this.sortAsc = (this.sortKey === sortKey) ? !this.sortAsc : false;
       this.sortKey = sortKey;
+    },
+    updateFilter() {
+      this.filterValue = this.$refs.filter.value;
     },
   },
   computed: {
@@ -64,155 +76,60 @@ export default {
         };
       });
     },
-    filteredData() {
-      return this.balancesAsArray.filter(element => element.match(this.filterText));
-    },
-    sortedData() {
-      return this.userBalances.sort((a, b) => {
-        let modifier = 1;
-        if (this.currentSortDir === 'desc') modifier = -1;
-        if (a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-        if (a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-        return 0;
-      });
+    filteredAndSortedData() {
+      // Apply filter first
+      let result = this.balancesAsArray;
+      if (this.filterValue) {
+        result = result.filter(item => item.symbol.includes(this.filterValue.toUpperCase()));
+      }
+      // Sort the remaining values
+      const ascDesc = this.sortAsc ? 1 : -1;
+      if (this.sortKey === 'symbol') {
+        return result.sort((a, b) => ascDesc * a.symbol.localeCompare(b.symbol));
+      }
+      return result.sort((a, b) => ascDesc * a.tokens.toString().localeCompare(b.tokens.toString()));
     },
   },
 };
 </script>
 
 <style scoped>
-.box {
-  margin-top: 20px;
-  width: 360px;
-  height: 100%;
-  background: linear-gradient(180deg, #6fcf97 0%, #66d2ea 100%);
+.filter {
+  margin: 20px;
+  background: #d7fae5;
+  border: 1px solid rgba(31, 32, 65, 0.25);
+  box-sizing: border-box;
   border-radius: 4px;
+  text-transform: uppercase;
 }
 
-.date {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 24px;
-  font-size: 16px;
-  color: #000000;
-  text-align: left;
-}
-
-.listbox {
-  margin-top: 20px;
-  width: 360px;
-  height: 90%;
-  background: #ffffff;
-  box-shadow: 0px 10px 20px rgba(31, 32, 65, 0.05);
-  border-radius: 4px;
-}
-
-.daybox {
+.symbol {
   font-family: Quicksand;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  font-size: 19px;
+  font-size: 16px;
   text-align: center;
-
   color: #1f2041;
-}
-
-.circle {
-  padding: 4px;
-  width: 44px;
-  height: 44px;
-  border-radius: 24px;
-  border: 2px solid #bc9cff;
-  color: #bc9cff;
+  background: #FFFFFF;
+  border: 1px solid rgba(31, 32, 65, 0.25);
   box-sizing: border-box;
-  font-family: Material Icons;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  text-align: center;
-}
-
-.icon {
-  padding: 5px;
-  margin-left: 25px;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  border: 2px solid #6fcf97;
-  box-sizing: border-box;
-  font-family: Material Icons;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  color: #6fcf97;
-}
-
-.title {
-  font-family: Quicksand;
-  text-align: center;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 19px;
-  color: #6fcf97;
-}
-
-.btitle {
-  width: 360px;
-  height: 29px;
-  margin: 0 2px 0 2px;
-  font-family: Quicksand;
-  text-align: center;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 19px;
-  color: #ffffff;
   border-radius: 4px;
-  background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
+  margin: 20px;
 }
 
-.dtitle {
+.tokens {
   font-family: Quicksand;
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
-  font-size: 42px;
-  text-align: center;
-
-  color: #bc9cff;
-}
-
-.htitle {
-  font-family: Montserrat;
-  margin-left: 20px;
-  text-align: left;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.hnumber {
-  margin-right: 20px;
-  font-family: Montserrat;
-  text-align: right;
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.line {
+  font-size: 19px;
   text-align: center;
-  margin-bottom: 20px;
-  margin-left: 25px;
-  margin-right: 25px;
-  height: 2px;
-  background: rgba(31, 32, 65, 0.1);
+  color: #1f2041;
+  background: #FFFFFF;
+  border: 1px solid rgba(31, 32, 65, 0.25);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 20px;
 }
 </style>

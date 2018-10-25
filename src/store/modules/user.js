@@ -63,6 +63,19 @@ const actions = {
     if (result[0]) resolve(false);
     resolve(true);
   }),
+
+
+  /**
+ * Gets username from ID
+ * @param {string} userId - ID of user to fetch
+ */
+  getUsername: async ({ userId }) => {
+    const result = await API.Account.getUser(userId);
+    if (result.success) {
+      const user = result.data;
+      return user;
+    }
+  },
 };
 
 const getters = {

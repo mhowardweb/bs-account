@@ -2,7 +2,7 @@
   <ion-menu side="start">
     <ion-header>
       <ion-toolbar class="mtoolbar">
-        <ion-title class="mtitle">Account Menu</ion-title>
+        <ion-title class="mtitle">Menu</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -99,7 +99,7 @@ export default {
   line-height: normal;
   font-size: 14px;
   text-transform: uppercase;
-  color: #1f2041;
+  color: #ffffff;
 }
 .moption {
   font-family: Montserrat;
@@ -111,6 +111,6 @@ export default {
 }
 
 .mtoolbar {
-  --ion-toolbar-background-color: #bc9cff;
+  --ion-toolbar-background-color: #9C27B0;
 }
 </style>

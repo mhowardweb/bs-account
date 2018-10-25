@@ -6,7 +6,7 @@
       </ion-buttons>
       <ion-title>Bitshares Accounts</ion-title>
       <ion-buttons slot="end">
-        <ion-icon size="large" name="square" class="indicator" :class="{'green': connected}" ></ion-icon>
+        <ion-icon size="large" name="contrast" class="indicator" :class="{'green': connected}" ></ion-icon>
       </ion-buttons>
 
     </ion-toolbar>
@@ -50,7 +50,7 @@ export default {
 }
 
 .green {
-  color: green;
+  color: #6fcf97;
 }
 </style>
 

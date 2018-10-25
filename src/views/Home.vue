@@ -1,6 +1,6 @@
 <template>
   <ion-content>
-    <ion-label class="title">Bitshares Accounts</ion-label>
+    <ion-list-header justify-content-center padding class="banner">Bitshares Accounts</ion-list-header>
     <ion-grid class="listbox">
 
       <ion-row v-for="(item, index) in accounts" :key="index">
@@ -54,18 +54,9 @@ export default {
   text-align: center;
   text-transform: uppercase;
 }
+
 ion-icon {
   font-size: 48px;
-}
-
-.date {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  line-height: 24px;
-  font-size: 16px;
-  color: #000000;
-  text-align: left;
 }
 
 .listbox {
@@ -75,113 +66,5 @@ ion-icon {
   background: #ffffff;
   box-shadow: 0px 10px 20px rgba(31, 32, 65, 0.05);
   border-radius: 4px;
-}
-
-.daybox {
-  font-family: Quicksand;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 19px;
-  text-align: center;
-
-  color: #1f2041;
-}
-
-.circle {
-  padding: 4px;
-  width: 44px;
-  height: 44px;
-  border-radius: 24px;
-  border: 2px solid #bc9cff;
-  color: #bc9cff;
-  box-sizing: border-box;
-  font-family: Material Icons;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  text-align: center;
-}
-
-.icon {
-  padding: 5px;
-  margin-left: 25px;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  border: 2px solid #6fcf97;
-  box-sizing: border-box;
-  font-family: Material Icons;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 24px;
-  color: #6fcf97;
-}
-
-.title {
-  font-family: Quicksand;
-  text-align: center;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 19px;
-  color: #6fcf97;
-}
-
-.btitle {
-  width: 360px;
-  height: 29px;
-  margin: 0 2px 0 2px;
-  font-family: Quicksand;
-  text-align: center;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 19px;
-  color: #ffffff;
-  border-radius: 4px;
-  background: linear-gradient(180deg, #bc9cff 0%, #8ba4f9 100%);
-}
-
-.dtitle {
-  font-family: Quicksand;
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
-  font-size: 42px;
-  text-align: center;
-
-  color: #bc9cff;
-}
-
-.htitle {
-  font-family: Montserrat;
-  margin-left: 20px;
-  text-align: left;
-  font-style: normal;
-  font-weight: bold;
-  line-height: normal;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.hnumber {
-  margin-right: 20px;
-  font-family: Montserrat;
-  text-align: right;
-  font-style: normal;
-  font-weight: normal;
-  line-height: normal;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.line {
-  text-align: center;
-  margin-bottom: 20px;
-  margin-left: 25px;
-  margin-right: 25px;
-  height: 2px;
-  background: rgba(31, 32, 65, 0.1);
 }
 </style>
