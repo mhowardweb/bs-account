@@ -34,9 +34,9 @@
           <ion-label class="moption">Balances</ion-label>
         </ion-item>
 
-        <ion-item button detail @click="goTransactions()" lines="full">
+        <ion-item button detail @click="goTransactionsHistory()" lines="full">
           <ion-icon style="color: #6fcf97" name="repeat" slot="start"></ion-icon>
-          <ion-label class="moption">Transactions</ion-label>
+          <ion-label class="moption">Transactions History</ion-label>
         </ion-item>
         <ion-item-divider></ion-item-divider>
 
@@ -79,8 +79,8 @@ export default {
       this.$router.push('balances');
       document.querySelector('ion-menu-controller').close('start');
     },
-    goTransactions() {
-      this.$router.push('transactions');
+    goTransactionsHistory() {
+      this.$router.push('transactionsHistory');
       document.querySelector('ion-menu-controller').close('start');
     },
     goSettings() {

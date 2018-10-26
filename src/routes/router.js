@@ -34,9 +34,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "balances" */ '../views/Balances.vue'),
     },
     {
-      path: '/transactions',
-      name: 'transactions',
-      component: () => import(/* webpackChunkName: "transactions" */ '../views/Transactions.vue'),
+      path: '/transactionsHistory',
+      name: 'transactionsHistory',
+      component: () => import(/* webpackChunkName: "transactionsHistory" */ '../views/TransactionsHistory.vue'),
     },
   ],
 });
