@@ -12,13 +12,19 @@
           ></ion-input>
         </ion-row>
 
-      <ion-row>
-        <ion-col class="btitle" @click="sortBy('symbol')"><ion-icon style="font-size: 12px" name="git-compare"></ion-icon> Coin</ion-col>
-        <ion-col class="btitle" @click="sortBy('tokens')">Amount</ion-col>
+      <ion-row  style="margin-left: 10px; margin-right: 10px;">
+        <ion-col size="3" class="htitle" @click="sortBy('ticker')"><ion-icon style="font-size: 12px" name="git-compare"></ion-icon> Ticker</ion-col>
+        <ion-col size="3" class="htitle" @click="sortBy('tokens')">Tokens</ion-col>
+        <ion-col size="3" class="htitle">$Value</ion-col>
+        <ion-col size="3" class="htitle">Share</ion-col>
       </ion-row>
-      <ion-row v-for="(item, index) in filteredAndSortedData" :key="index">
-        <ion-col v-if="item.tokens > 0.9" class="symbol">{{ item.symbol }}</ion-col>
-        <ion-col v-if="item.tokens > 0.9" class="tokens">{{ item.tokens }}</ion-col>
+      <ion-row style="margin-left: 10px; margin-right: 10px;" v-for="(item, index) in filteredAndSortedData" :key="index">
+        <template v-if="item.tokens > 0.9">
+          <ion-col size="3" class="balances">{{ item.ticker }}</ion-col>
+          <ion-col size="3" class="balances">{{ item.tokens }}</ion-col>
+          <ion-col size="3" class="balances">{{ item.fiatValue }}</ion-col>
+          <ion-col size="3" class="balances">{{ item.share }}%</ion-col>
+        </template >
       </ion-row>
 
     </ion-grid>
@@ -36,12 +42,15 @@ export default {
       sortKey: 'symbol',
       sortAsc: true,
       search: '',
+      sort: {
+        field: 'fiatValue',
+        type: 'desc',
+      },
 
     };
   },
   methods: {
     sortBy(sortKey) {
-      console.log('clicked', sortKey, this.sortAsc);
       this.sortAsc = (this.sortKey === sortKey) ? !this.sortAsc : false;
       this.sortKey = sortKey;
     },
@@ -51,41 +60,19 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userBalances: 'user/getBalances',
-      getAssetById: 'assets/getAssetById',
-      getHideList: 'assets/getHideList',
       userName: 'user/getUserName',
+      items: 'portfolio/getItems',
     }),
-    balancesAsArray() {
-      const balances = this.userBalances;
-      if (!balances) return [];
-      // filter balances that are > 0 and generate array with symbols
-      // and precised balances
-      let balancesKeys = Object.keys(balances).filter(id => balances[id].balance);
-      if (!this.editAssetsMode) {
-        balancesKeys = balancesKeys.filter(id => !this.getHideList.includes(id));
-      }
-      return balancesKeys.map((id) => {
-        const asset = this.getAssetById(id);
-        const visible = !this.getHideList.includes(id);
-        return {
-          id,
-          symbol: asset.symbol,
-          tokens: balances[id].balance / 10 ** asset.precision,
-          visible,
-        };
-      });
-    },
     filteredAndSortedData() {
       // Apply filter first
-      let result = this.balancesAsArray;
+      let result = this.items;
       if (this.filterValue) {
-        result = result.filter(item => item.symbol.includes(this.filterValue.toUpperCase()));
+        result = result.filter(item => item.ticker.includes(this.filterValue.toUpperCase()));
       }
       // Sort the remaining values
       const ascDesc = this.sortAsc ? 1 : -1;
-      if (this.sortKey === 'symbol') {
-        return result.sort((a, b) => ascDesc * a.symbol.localeCompare(b.symbol));
+      if (this.sortKey === 'ticker') {
+        return result.sort((a, b) => ascDesc * a.ticker.localeCompare(b.ticker));
       }
       return result.sort((a, b) => ascDesc * a.tokens.toString().localeCompare(b.tokens.toString()));
     },
@@ -103,33 +90,31 @@ export default {
   text-transform: uppercase;
 }
 
-.symbol {
-  font-family: Quicksand;
+.htitle {
+  font-family: Montserrat;
+  text-align: center;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  font-size: 16px;
-  text-align: center;
-  color: #1f2041;
-  background: #FFFFFF;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #9C27B0;
   border: 1px solid rgba(31, 32, 65, 0.25);
   box-sizing: border-box;
-  border-radius: 4px;
-  margin: 20px;
+  margin: 0px;
 }
 
-.tokens {
+.balances {
   font-family: Quicksand;
   font-style: normal;
   font-weight: bold;
   line-height: normal;
-  font-size: 19px;
+  font-size: 12px;
   text-align: center;
   color: #1f2041;
   background: #FFFFFF;
   border: 1px solid rgba(31, 32, 65, 0.25);
   box-sizing: border-box;
-  border-radius: 4px;
-  margin: 20px;
+  margin: 0px;
 }
 </style>

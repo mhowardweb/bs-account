@@ -6,6 +6,7 @@ import connection from './modules/connection';
 import user from './modules/user';
 import assets from './modules/assets';
 import operations from './modules/operations';
+import portfolio from './modules/portfolio';
 import * as types from './types';
 
 const vuexPersist = new VuexPersist({
@@ -60,5 +61,6 @@ export default new Vuex.Store({
     user,
     assets,
     operations,
+    portfolio,
   },
 });

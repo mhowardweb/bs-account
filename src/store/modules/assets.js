@@ -47,10 +47,10 @@ const fetchAssets2 = async (store, { assets }) => {
   const currentAssetsIds = Object.keys(getters.getAssets);
 
   // filter out existing assets
-  const filteredAssets = assets.filter(id => currentAssetsIds.indexOf(id) === -1);
+  // const filteredAssets = assets.filter(id => currentAssetsIds.indexOf(id) === -1);
 
   commit(types.FETCH_ASSETS_REQUEST);
-  const result = await API.Assets.fetch(filteredAssets);
+  const result = await API.Assets.fetch(currentAssetsIds);
 
   if (result) {
   // to remove prefix specified in config (e.x. ".OPEN")
@@ -150,6 +150,7 @@ const getters = {
  * Returns function to get asset by id
  */
   getAssetById({ assets }) {
+    console.log('GET_ASSET_BY_ID:', assets);
     return id => ((assets && assets[id]) ? assets[id] : {
       symbol: '...',
       precision: 1,

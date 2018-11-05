@@ -1,5 +1,6 @@
 <template>
   <ion-content>
+
     <ion-list-header justify-content-center padding class="banner">Transactions</ion-list-header>
       <ion-grid>
         <ion-row >
@@ -38,6 +39,7 @@
         :key="item.id"
         :user-id="userId"/>
     </LoadingContainer>
+
 
   </ion-content>
 </template>
@@ -92,7 +94,10 @@ export default {
     async getData() {
       const limit = 100;
       await this.getTransactions({ userId: this.account.nameId, limit });
-      // this.$router.push('/');
+    },
+    doRefresh(event) {
+      this.getData();
+      event.target.complete();
     },
   },
   computed: {

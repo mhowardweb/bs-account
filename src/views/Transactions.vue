@@ -1,5 +1,6 @@
 <template>
   <ion-content>
+
       <ion-alert-controller></ion-alert-controller>
         <ion-list-header justify-content-center padding class="banner">Transactions</ion-list-header>
           <ion-grid>
@@ -32,6 +33,7 @@
         <ion-col size="auto" text-right> <ion-icon size="large" style="color: #9C27B0" @click="displayDetails(item)" name="add-circle-outline"></ion-icon> </ion-col>
       </ion-row>
     </ion-grid>
+
   </ion-content >
 </template>
 
