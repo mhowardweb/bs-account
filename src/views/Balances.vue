@@ -12,6 +12,18 @@
           ></ion-input>
         </ion-row>
 
+        <ion-row>
+          <ion-column>
+            <vc-donut
+              background="white" foreground="grey"
+              :size="200" unit="px" :thickness="20"
+              hasLegend legendPlacement="bottom"
+              :sections="sections" :total="100">
+              <h1 style="margin: 0;">100%</h1>
+            </vc-donut>
+          </ion-column>
+        </ion-row>
+
       <ion-row  style="margin-left: 10px; margin-right: 10px;">
         <ion-col size="3" class="htitle" @click="sortBy('ticker')"><ion-icon style="font-size: 12px" name="git-compare"></ion-icon> Ticker</ion-col>
         <ion-col size="3" class="htitle" @click="sortBy('tokens')">Tokens</ion-col>
@@ -33,6 +45,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { clearTimeout } from 'timers';
 
 export default {
   name: 'Balances',
@@ -46,8 +59,11 @@ export default {
         field: 'fiatValue',
         type: 'desc',
       },
-
+      sections: [],
     };
+  },
+  mounted() {
+    this.calcSections();
   },
   methods: {
     sortBy(sortKey) {
@@ -56,6 +72,20 @@ export default {
     },
     updateFilter() {
       this.filterValue = this.$refs.filter.value;
+    },
+    calcSections() {
+      let donutData = this.items;
+      console.log(donutData);
+      donutData = donutData.filter(item => item.tokens > 0.9);
+      for (let i = 0; i < donutData.length; i++) {
+        donutData[i].value = donutData[i].share;
+        delete donutData[i].share;
+        donutData[i].label = donutData[i].ticker;
+        delete donutData[i].ticker;
+      }
+
+      this.sections = donutData;
+      return this.sections;
     },
   },
   computed: {

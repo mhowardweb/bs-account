@@ -99,7 +99,7 @@ export default {
   line-height: normal;
   font-size: 14px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #1b1a1a;
 }
 .moption {
   font-family: Montserrat;

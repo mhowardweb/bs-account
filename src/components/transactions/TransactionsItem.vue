@@ -2,12 +2,9 @@
   <ion-grid>
     <ion-row>
       <ion-col size="3.6">
-        <ion-chip :style="typeColor" class="chip">
-          <ion-label>
-            <ion-icon :name="icon"></ion-icon>
-            {{ item.type | transactionType }}
-          </ion-label>
-        </ion-chip>
+        <ion-label :style="typeColor" class="chip">
+          {{ item.type | transactionType }}
+        </ion-label>
       </ion-col>
 
       <ion-col>
@@ -115,8 +112,9 @@ export default {
   text-align: center;
   font-size: 10px;
   width: 115px;
-  height: 32px;;
+  height: 50px;;
   color: #ffffff;
+  padding: 10px;
 }
 
 .operation-item {
